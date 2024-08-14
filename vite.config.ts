@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc"; 
 export default defineConfig({
-  base: "/",
+  base: "/easy-craft",
   optimizeDeps: {
     include: ["@emotion/react", "@emotion/styled", "@mui/material/Tooltip"],
   },
