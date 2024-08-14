@@ -1,5 +1,5 @@
 import { Suspense, useMemo } from "react";
-import { Grid, Link, Skeleton, Stack } from "@mui/material";
+import { Grid, Link, Skeleton } from "@mui/material";
 import {
   Await,
   Link as RouterLink,

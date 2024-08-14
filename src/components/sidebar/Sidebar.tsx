@@ -3,7 +3,6 @@ import {
   List,
   Box,
   Drawer,
-  Typography,
   Stack,
 } from "@mui/material";
 const SIDE_BAR_WIDTH = "260px";

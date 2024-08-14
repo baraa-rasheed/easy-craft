@@ -4,7 +4,6 @@ import Draggable from "./Dragable";
 import { CMS_COMPONENTS, getElementProps } from "../../types/cms";
 const SIDE_BAR_WIDTH = "370px";
 import components from "../../components";
-import Panel from "../Panel";
 type IComponentKey = keyof typeof components;
 
 const ComponentsList = () => {

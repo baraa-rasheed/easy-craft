@@ -5,7 +5,7 @@ import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/ad
 import { v4 as uuid } from "uuid";
 import { LayoutGroup, motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
-import { SPACING, ELEMENT_HEIGHT, SIZES } from "../../constants";
+import { SPACING, SIZES } from "../../constants";
 import components from "../../components";
 import { CMS_COMPONENTS, getElementProps, SIZE } from "../../types/cms";
 import { useRouteStore } from "../../store/useRouteStore";
@@ -13,7 +13,6 @@ import CMSElement from "../../components/cms/CMSElement";
 import { IElement, IRoute } from "../../types/routes";
 import ElementFormModal from "../../components/cms/modals/ElementFormModal";
 import Draggable from "../../components/cms/Dragable";
-import { authApis } from "../../apis/auth";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -65,14 +64,12 @@ const Header = ({
   );
 };
 
-const RenderElement = ({
-  height,
+const RenderElement = ({ 
   element,
   onSizeChange,
   onEditElement,
   onDeleteElement,
 }: {
-  height?: string;
   element: IElement;
   onSizeChange: (_: SIZE) => void;
   onDeleteElement: (_: string) => void;

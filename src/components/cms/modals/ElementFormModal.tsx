@@ -16,7 +16,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { useMemo, useReducer, useState } from "react";
+import { useMemo, useReducer } from "react";
 import { IElement } from "../../../types/routes";
 import { CMS_COMPONENTS } from "../../../types/cms";
 import IconsAutoComplete from "../../shared/IconsAutoComplete";
@@ -113,7 +113,7 @@ export default function ElementFormModal({
                           <Grid item xs={6} key={prop.key}>
                             {prop.type["icon"] ? (
                               <IconsAutoComplete
-                                value={state?.props?.[prop.key] ?? ""}
+                                iconName={state?.props?.[prop.key] ?? ""}
                                 onIconChange={(icon) =>
                                   dispatch({
                                     type: ACTION_TYPES.PROP_CHANGED,

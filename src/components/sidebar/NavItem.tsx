@@ -1,4 +1,4 @@
-import React from "react";
+
 
 import {
   ListItemIcon,
@@ -32,7 +32,7 @@ const NavIcon = ({ icon }: { icon: keyof typeof Icons }) => {
   return <Icon />;
 };
 
-const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
+const NavItem = ({ item, level, pathDirect }: ItemType) => {
   const theme = useTheme();
   const ListItemStyled = styled(ListItem)(() => ({
     padding: 0,

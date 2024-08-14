@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { SIZE } from "../../types/cms";
+import EditIcon from "@mui/icons-material/Edit"; 
+import {SIZES} from '../../constants'
 const list = {
   visible: { opacity: 1, scale: 1 },
   hidden: { opacity: 0, scale: 0.5 },
@@ -32,10 +32,10 @@ export default function CMSElement({
   onSizeChange,
   children,
 }: {
-  size: SIZE;
+  size: keyof typeof SIZES;
   onEdit: () => void;
   onDelete: () => void;
-  onSizeChange: (size: SIZE) => void;
+  onSizeChange: (size: keyof typeof SIZES) => void;
   children: React.ReactNode;
 }) {
   return (

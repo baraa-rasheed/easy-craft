@@ -22,7 +22,6 @@ import { useLocation, useRoutes } from "react-router-dom";
 import RouteFormModal from "../modals/RouteFormModal";
 import { useState } from "react";
 import groupBy from "lodash/groupBy";
-import { IRoute } from "../../../types/routes";
 import { useRouteStore } from "../../../store/useRouteStore";
 
 const NavItems = ({ routes }: { routes: Array<any> }) => {

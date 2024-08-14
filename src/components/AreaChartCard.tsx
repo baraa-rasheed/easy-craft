@@ -13,11 +13,11 @@ export default function AreaChartCard(props: IProps) {
     `${Intl.NumberFormat("us").format(number)}`;
 
   const payload = datas?.payload?.[0];
-  const value = payload?.value;
+  const value = payload?.value??0;
 
   const formattedValue = payload
     ? titleFormatter(value)
-    : titleFormatter(props.chartData[props.chartData.length - 1].value);
+    : titleFormatter(+props.chartData[props.chartData.length - 1].value);
 
   return (
     <Card title={formattedValue} text={props.text}>

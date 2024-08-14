@@ -1,6 +1,6 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
+import Autocomplete, { autocompleteClasses, AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Popper from "@mui/material/Popper";
 import { useTheme, styled } from "@mui/material/styles";
@@ -120,7 +120,7 @@ const StyledPopper = styled(Popper)({
   },
 });
 
-const renderInput = (params) => {
+const renderInput = (params:AutocompleteRenderInputParams) => {
   const Icon = Icons[params?.inputProps?.value as keyof typeof Icons];
   return (
     <TextField

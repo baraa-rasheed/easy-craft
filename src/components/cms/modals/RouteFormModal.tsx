@@ -20,7 +20,7 @@ import IconsAutoComplete from "../../shared/IconsAutoComplete";
 
 const PAGE_TYPES = ["Tempreture", "Franke", "Doors", "Others"];
 
-const PageTypeSelector = ({ type, onTypeChange }) => {
+const PageTypeSelector = ({ type, onTypeChange }:{type:string,onTypeChange:any}) => {
   const handleChange = (e: SelectChangeEvent) => onTypeChange(e.target.value);
   return (
     <FormControl fullWidth>
