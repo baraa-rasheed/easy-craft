@@ -24,9 +24,9 @@ const ProtectedRoute = () => {
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#ecfdf5",
-      main: "#10b981",
-      dark: "#047857",
+      light: "#eef2ff",
+      main: "#6366f1",
+      dark: "#4f46e5",
       contrastText: "#fff",
     },
     secondary: {
@@ -54,6 +54,7 @@ const router = createBrowserRouter(
     { path: "/login", element: <Login /> },
   ],
   {
+    basename:'/easy-craft',
     async unstable_patchRoutesOnMiss({ path, patch }) {
       if (!path.includes("cms")) {
         patch("dashboard", generateRoutes(useRouteStore.getState().routes));

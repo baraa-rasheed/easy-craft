@@ -73,29 +73,7 @@ export default function AppLayout() {
               </button>
 
               <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10">
-                <a
-                  href="#"
-                  title=""
-                  className="text-base font-medium text-black transition-all duration-200 hover:text-green-800 focus:text-green-800"
-                >
-                  Runops
-                </a>
-
-                <a
-                  href="#"
-                  title=""
-                  className="text-base font-medium text-black transition-all duration-200 hover:text-green-800 focus:text-green-800"
-                >
-                  Notifications
-                </a>
-
-                <a
-                  href="#"
-                  title=""
-                  className="text-base font-medium text-black transition-all duration-200 hover:text-green-800 focus:text-green-800"
-                >
-                  Settings
-                </a>
+               
                 <RouterLink
                   className="bg-emerald-500 p-3 rounded-md text-base font-medium text-white transition-all duration-200 hover:bg-emerald-600 focus:text-emerald-600"
                   to={`/cms${location.pathname}`}
@@ -106,40 +84,14 @@ export default function AppLayout() {
             </nav>
 
             <nav className="pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden">
-              <div className="flow-root">
-                <div className="flex flex-col px-6 -my-2 space-y-1">
-                  <a
-                    href="#"
-                    title=""
-                    className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-green-800 focus:text-green-800"
-                  >
-                    Runops
-                  </a>
-
-                  <a
-                    href="#"
-                    title=""
-                    className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-green-800 focus:text-green-800"
-                  >
-                    Notifications
-                  </a>
-
-                  <a
-                    href="#"
-                    title=""
-                    className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-green-800 focus:text-green-800"
-                  >
-                    Settings
-                  </a>
-                </div>
-              </div>
+         
 
               <div className="px-6 mt-6">
                 <RouterLink
                   className="bg-green-600 p-3 rounded-md text-base font-medium text-white transition-all duration-200 hover:bg-green-800 focus:text-green-800"
                   to={`/cms${location.pathname}`}
                 >
-                  Go To 7-CMS
+                   Switch to Craft Mode
                 </RouterLink>
               </div>
             </nav>

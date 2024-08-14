@@ -79,27 +79,6 @@ const INIT_ROUTES = [
     icon: "TaskOutlined",
     elements: [],
   },
-  {
-    title: "Power Cycle",
-    type: "Others",
-    path: "/power-cycle",
-    icon: "PowerOutlined",
-    elements: [],
-  },
-  {
-    title: "Cigirate Counting",
-    type: "Others",
-    path: "/cigirate-counting",
-    icon: "SmokingRoomsOutlined",
-    elements: [],
-  },
-  {
-    title: "Customer Feedback",
-    type: "Others",
-    path: "/customer-feedback",
-    icon: "FeedbackOutlined",
-    elements: [],
-  },
 ];
 
 interface RouteState {

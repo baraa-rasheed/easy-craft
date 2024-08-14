@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useAuthStore } from "../store/useAuthStore";
 import { redirect } from "react-router";
+ 
 
-const { REACT_APP_API_URL } = process.env;
-
-export const request = axios.create({ baseURL: REACT_APP_API_URL });
+export const request = axios.create({ baseURL: 'REACT_APP_API_URL' });
 
 request.interceptors.request.use(async (config) => {
   config.headers.setAccept("application/json, text/plain, */*");
