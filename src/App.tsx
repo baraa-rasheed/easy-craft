@@ -3,41 +3,21 @@ import {
   Navigate,
   RouterProvider,
   Outlet,
-} from "react-router-dom";
+} from "react-router";
 import CMS from "./pages/cms/CMS";
-import { createTheme, ThemeProvider } from "@mui/material";
 import CMSLayout from "./layouts/CMSLayout";
 import AppLayout from "./layouts/AppLayout";
 import { generateRoutes } from "./routes/router";
 import { useRouteStore } from "./store/useRouteStore";
 import Login from "./pages/Login";
 import { useAuthStore } from "./store/useAuthStore";
-import DashboardSkeleton from "./components/DashboardSkeleton";
+import { ThemeProvider } from "./context/theme-context";
 
 const ProtectedRoute = () => {
   const user = useAuthStore((state) => state.user);
-  console.log(user);
   if (user) return <Outlet />;
   return <Navigate to="/login" replace />;
 };
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: "#eef2ff",
-      main: "#6366f1",
-      dark: "#4f46e5",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#f69a4b",
-      main: "#F4811F",
-      dark: "#aa5a15",
-      contrastText: "#fff",
-    },
-  },
-});
-
 
 const router = createBrowserRouter(
   [
@@ -54,19 +34,19 @@ const router = createBrowserRouter(
     { path: "/login", element: <Login /> },
   ],
   {
-    basename:'/easy-craft',
-    async unstable_patchRoutesOnMiss({ path, patch }) {
+    basename: "/easy-craft",
+    async patchRoutesOnNavigation({ path, patch }) {
       if (!path.includes("cms")) {
         patch("dashboard", generateRoutes(useRouteStore.getState().routes));
       }
     },
-  },
+  }
 );
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} fallbackElement={<DashboardSkeleton />} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }

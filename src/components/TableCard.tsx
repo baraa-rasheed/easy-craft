@@ -7,9 +7,15 @@ import {
   TableRoot,
   TableRow,
 } from "./primitives/Table";
-import Card from "./Card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
-export default function TableCard() {
+export default function TableCard(props:any) {
   const data: Array<{
     workspace: string;
     owner: string;
@@ -47,7 +53,7 @@ export default function TableCard() {
       lastEdited: "25/09/2023 16:20",
     },
     {
-      workspace: "test_environment",
+      workspace: "test_environment2",
       owner: "David Clark",
       status: "Inactive",
       costs: "$800.00",
@@ -59,36 +65,44 @@ export default function TableCard() {
 
   return (
     <Card>
-      <TableRoot className="h-72">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell>Workspace</TableHeaderCell>
-              <TableHeaderCell>Owner</TableHeaderCell>
-              <TableHeaderCell>Status</TableHeaderCell>
-              <TableHeaderCell>Region</TableHeaderCell>
-              <TableHeaderCell>Capacity</TableHeaderCell>
-              <TableHeaderCell className="text-right">Costs</TableHeaderCell>
-              <TableHeaderCell className="text-right">
-                Last edited
-              </TableHeaderCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((item) => (
-              <TableRow key={item.workspace}>
-                <TableCell className="">{item.workspace}</TableCell>
-                <TableCell>{item.owner}</TableCell>
-                <TableCell>{item.status}</TableCell>
-                <TableCell>{item.region}</TableCell>
-                <TableCell>{item.capacity}</TableCell>
-                <TableCell className="text-right">{item.costs}</TableCell>
-                <TableCell className="text-right">{item.lastEdited}</TableCell>
+      <CardHeader>
+        <CardTitle>Table Title</CardTitle>
+        <CardDescription>Table description</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <TableRoot className="h-72">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell>Workspace</TableHeaderCell>
+                <TableHeaderCell>Owner</TableHeaderCell>
+                <TableHeaderCell>Status</TableHeaderCell>
+                <TableHeaderCell>Region</TableHeaderCell>
+                <TableHeaderCell>Capacity</TableHeaderCell>
+                <TableHeaderCell className="text-right">Costs</TableHeaderCell>
+                <TableHeaderCell className="text-right">
+                  Last edited
+                </TableHeaderCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableRoot>
+            </TableHead>
+            <TableBody>
+              {data.map((item) => (
+                <TableRow key={item.workspace}>
+                  <TableCell className="">{item.workspace}</TableCell>
+                  <TableCell>{item.owner}</TableCell>
+                  <TableCell>{item.status}</TableCell>
+                  <TableCell>{item.region}</TableCell>
+                  <TableCell>{item.capacity}</TableCell>
+                  <TableCell className="text-right">{item.costs}</TableCell>
+                  <TableCell className="text-right">
+                    {item.lastEdited}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableRoot>
+      </CardContent>
     </Card>
   );
 }

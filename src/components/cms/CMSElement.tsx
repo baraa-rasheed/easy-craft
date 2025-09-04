@@ -1,15 +1,10 @@
 import React from "react";
-import {
-  Divider,
-  IconButton,
-  Stack,
-  ToggleButton,
-  ToggleButtonGroup,
-} from "@mui/material";
 import { motion } from "framer-motion";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit"; 
-import {SIZES} from '../../constants'
+import { SIZES } from "../../constants";
+import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
+import { Edit2Icon, Trash2Icon } from "lucide-react";
+import { Button } from "../ui/button";
+
 const list = {
   visible: { opacity: 1, scale: 1 },
   hidden: { opacity: 0, scale: 0.5 },
@@ -31,13 +26,13 @@ export default function CMSElement({
   onDelete,
   onSizeChange,
   children,
-}: {
+}: Readonly<{
   size: keyof typeof SIZES;
   onEdit: () => void;
   onDelete: () => void;
   onSizeChange: (size: keyof typeof SIZES) => void;
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <motion.div
       style={{ position: "relative", height: "100%" }}
@@ -52,29 +47,16 @@ export default function CMSElement({
         ease: [0, 0.71, 0.2, 1.01],
       }}
     >
-      <motion.div
-        variants={item}
-        style={{
-          gap: 2,
-          zIndex: 1999,
-          right: 0,
-          position: "absolute",
-          backgroundColor: "white",
-        }}
-      >
-        <ToggleButtonGroup
-          color="primary"
-          value={size}
-          exclusive
-          size="small"
-          aria-label="Platform"
-          sx={{ backgroundColor: "white" }}
-          onChange={(_, value) => onSizeChange(value)}
+      <motion.div variants={item} className="bg-card shadow rounded absolute right-0 z-10">
+        <ToggleGroup
+          type="single"
+          defaultValue={size}
+          onValueChange={(value: keyof typeof SIZES) => onSizeChange(value)}
         >
-          <ToggleButton value="small">sm</ToggleButton>
-          <ToggleButton value="medium">md</ToggleButton>
-          <ToggleButton value="large">lg</ToggleButton>
-        </ToggleButtonGroup>
+          <ToggleGroupItem value="col-span-4">sm</ToggleGroupItem>
+          <ToggleGroupItem value="col-span-6">md</ToggleGroupItem>
+          <ToggleGroupItem value="col-span-12">lg</ToggleGroupItem>
+        </ToggleGroup>
       </motion.div>
       <motion.div
         variants={edit}
@@ -82,19 +64,17 @@ export default function CMSElement({
           gap: 2,
           zIndex: 1999,
           right: 0,
-          position: "absolute",
-          backgroundColor: "white",
+          position: "absolute", 
         }}
       >
-        <Stack sx={{ border: "1px solid #ddd", borderRadius: 1 }}>
-          <IconButton onClick={onEdit} color="info" value="small">
-            <EditIcon fontSize="small" />
-          </IconButton>
-          <Divider />
-          <IconButton onClick={onDelete} color="error" value="medium">
-            <DeleteIcon fontSize="small" />
-          </IconButton>
-        </Stack>
+        <div className="bg-card rounded flex flex-col gap-1 shadow">
+          <Button onClick={onEdit} size={'sm'}>
+            <Edit2Icon />
+          </Button>
+          <Button variant={"destructive"} onClick={onDelete} size={'sm'}>
+            <Trash2Icon />
+          </Button>
+        </div>
       </motion.div>
       {children}
     </motion.div>

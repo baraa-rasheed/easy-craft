@@ -1,11 +1,10 @@
-import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import DropArea from "../../components/cms/DropArea";
 import { useCallback, useEffect, useState } from "react";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { v4 as uuid } from "uuid";
 import { LayoutGroup, motion } from "framer-motion";
-import { useLocation, useNavigate } from "react-router-dom";
-import { SPACING, SIZES } from "../../constants";
+import { useLocation, useNavigate } from "react-router";
+import { SIZES } from "../../constants";
 import components from "../../components";
 import { CMS_COMPONENTS, getElementProps, SIZE } from "../../types/cms";
 import { useRouteStore } from "../../store/useRouteStore";
@@ -13,8 +12,10 @@ import CMSElement from "../../components/cms/CMSElement";
 import { IElement, IRoute } from "../../types/routes";
 import ElementFormModal from "../../components/cms/modals/ElementFormModal";
 import Draggable from "../../components/cms/Dragable";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import { Button } from "@/components/ui/button";
+import { DeleteIcon, Edit2Icon, TrashIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import ContentSection from "@/components/layout/content-section";
 
 type IElementState = {
   [id: string]: IElement;
@@ -32,39 +33,39 @@ const Header = ({
   title: string | undefined;
 }) => {
   return (
-    <Stack
-      gap={3}
-      direction={"row"}
-      alignItems="center"
-      justifyContent={"space-between"}
-    >
-      <Typography variant="h5" fontWeight={"500"}>
-        {title}
-      </Typography>
+    <div className="flex items-center space-between">
+      <div className="flex-1">
+        <ContentSection
+          title={title}
+          description={`Manage ${title} with ease`}
+        />
+      </div>
       <div className="flex gap-3">
         <motion.div whileHover={{ rotate: "2deg", scale: 1.1 }}>
-          <Button variant="contained" onClick={onPublish}>
-            <Typography variant="button">Save & Publish</Typography>
+          <Button
+            className="bg-sky-700 hover:bg-sky-600 text-white"
+            onClick={onEdit}
+          >
+            <Edit2Icon />
+          </Button>
+        </motion.div>
+        <motion.div whileHover={{ rotate: "-2deg", scale: 1.1 }}>
+          <Button
+            className="bg-destructive/70 hover:bg-destructive text-white"
+            onClick={onDelete}
+          >
+            <TrashIcon />
           </Button>
         </motion.div>
         <motion.div whileHover={{ rotate: "2deg", scale: 1.1 }}>
-          <IconButton color="info" onClick={onEdit}>
-            <EditIcon />
-          </IconButton>
+          <Button onClick={onPublish}>Save & Publish</Button>
         </motion.div>
-        {onDelete && (
-          <motion.div whileHover={{ rotate: "-2deg", scale: 1.1 }}>
-            <IconButton color="error" onClick={onDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </motion.div>
-        )}
       </div>
-    </Stack>
+    </div>
   );
 };
 
-const RenderElement = ({ 
+const RenderElement = ({
   element,
   onSizeChange,
   onEditElement,
@@ -78,7 +79,7 @@ const RenderElement = ({
   if (!element.element) return null;
   const Component = components[element.element];
   return (
-    <Grid item xs={SIZES[element.size]}>
+    <div className={element.size}>
       <CMSElement
         size={element.size}
         onSizeChange={onSizeChange}
@@ -94,7 +95,7 @@ const RenderElement = ({
           />
         </Draggable>
       </CMSElement>
-    </Grid>
+    </div>
   );
 };
 
@@ -105,10 +106,10 @@ export default function CMS() {
   const [currentRoute, setCurrentRoute] = useState<IRoute | null>(null);
   const [selectedElement, setSelectedElement] = useState<IElement | null>(null);
   const [elements, setElements] = useState<IElementState>({});
-
+ 
   useEffect(() => {
     const currentRoute = routes.find(
-      (route) => `/cms${route.path}` === locaiton.pathname,
+      (route) => `/cms${route.path}` === locaiton.pathname
     );
     if (currentRoute) {
       setCurrentRoute(currentRoute);
@@ -117,7 +118,7 @@ export default function CMS() {
         elements[element.id] = element;
       });
       setElements(elements);
-    } else navigate("/cms");
+    } else console.log("oh oh /cms",routes,currentRoute);
   }, [routes, navigate, locaiton]);
 
   useEffect(() => {
@@ -155,7 +156,7 @@ export default function CMS() {
           setElements((e) => {
             return {
               ...e,
-              [id]: { children: [], size: "medium", type: "Grid", id },
+              [id]: { children: [], size: "col-span-6", type: "Grid", id },
             };
           });
         } else {
@@ -166,7 +167,7 @@ export default function CMS() {
               newElements[destinationId]?.children?.push({
                 id,
                 props,
-                size: "medium",
+                size: "col-span-6",
                 element: sourceId,
               });
             } else {
@@ -182,7 +183,7 @@ export default function CMS() {
           setElements((e) => {
             return {
               ...e,
-              [id]: { id, size: "medium", element: sourceId, props },
+              [id]: { id, size: "col-span-6", element: sourceId, props },
             };
           });
         }
@@ -191,17 +192,22 @@ export default function CMS() {
   }, [elements]);
 
   const onPublish = useCallback(() => {
-    if (!currentRoute) return;
-    const newRoutes = [...routes];
-    const routeIndex = newRoutes.findIndex(
-      (route) => `/cms${route.path}` === locaiton.pathname,
-    );
-    newRoutes[routeIndex] = {
-      ...newRoutes[routeIndex],
-      elements: Object.values(elements),
-    };
-    setRoutes(newRoutes);
-    navigate(currentRoute?.path, { replace: true });
+    try{
+
+      if (!currentRoute) return;
+      const newRoutes = [...routes];
+      const routeIndex = newRoutes.findIndex(
+        (route) => `/cms${route.path}` === locaiton.pathname
+      );
+      newRoutes[routeIndex] = {
+        ...newRoutes[routeIndex],
+        elements: Object.values(elements),
+      };
+      setRoutes(newRoutes);
+      navigate(currentRoute?.path, { replace: true });
+    }catch(e){
+      console.log(e);
+    }
   }, [locaiton, currentRoute, routes, navigate, setRoutes, elements]);
 
   const onElementSizeChange = (element: IElement, size: SIZE) => {
@@ -220,40 +226,31 @@ export default function CMS() {
     });
   };
 
-  return (
-    <Stack gap={3}>
-      <Header
-        title={currentRoute?.title}
-        onPublish={onPublish}
-        onDelete={
-          currentRoute?.path !== "/"
-            ? () => {
-                setRoutes(
-                  routes.filter((route) => route.path != currentRoute?.path),
-                );
-                navigate("/", { replace: true });
-              }
-            : undefined
-        }
-        onEdit={() => null}
-      />
-      <LayoutGroup>
-        <Grid container spacing={SPACING} position={"relative"}>
+  return ( 
+      <div className="flex h-full overflow-scroll flex-col gap-4 px-12 py-8 my-8 rounded-lg bg-zinc-100 dark:bg-card/60 border">
+        <Header
+          title={currentRoute?.title}
+          onPublish={onPublish}
+          onDelete={
+            currentRoute?.path !== "/"
+              ? () => {
+                  navigate("/", { replace: true });
+                  setRoutes(
+                    routes.filter((route) => route.path != currentRoute?.path)
+                  );
+                }
+              : undefined
+          }
+          onEdit={() => null}
+        />
+        <div className="grid grid-cols-12 gap-3 w-full">
           {Object.values(elements).map((item) => {
             if (item.children)
               return (
-                <Grid
-                  key={item.id}
-                  item
-                  xs={6}
-                  position="relative"
-                  minHeight={200}
-                  bgcolor={"primary.light"}
-                >
-                  <Grid item container position="relative" spacing={SPACING}>
+                <div className="col-span-1" key={item.id}>
+                  <div className="grid grid-cols-12 gap-4">
                     {item.children.map((child: IElement) => (
                       <RenderElement
-                        height="auto"
                         key={child.id}
                         element={child}
                         onDeleteElement={onDeleteElement}
@@ -264,8 +261,8 @@ export default function CMS() {
                       />
                     ))}
                     <DropArea id={item.id} />
-                  </Grid>
-                </Grid>
+                  </div>
+                </div>
               );
             return (
               <RenderElement
@@ -277,30 +274,29 @@ export default function CMS() {
               />
             );
           })}
-          <Grid item xs position={"relative"}>
+          <div className="relative col-span-full">
             <DropArea
               key={Object.values(elements).length}
               id={`${Object.values(elements).length + 1}`}
             />
-          </Grid>
-        </Grid>
-      </LayoutGroup>
-      {selectedElement && (
-        <ElementFormModal
-          onSubmit={(element) => {
-            setSelectedElement(null);
-            setElements((e) => {
-              return {
-                ...e,
-                [element.id]: { ...element },
-              };
-            });
-          }}
-          element={selectedElement}
-          isVisible={!!selectedElement}
-          onDismiss={() => setSelectedElement(null)}
-        />
-      )}
-    </Stack>
+          </div>
+        </div>
+        {selectedElement && (
+          <ElementFormModal
+            onSubmit={(element) => {
+              setSelectedElement(null);
+              setElements((e) => {
+                return {
+                  ...e,
+                  [element.id]: { ...element },
+                };
+              });
+            }}
+            element={selectedElement}
+            isVisible={!!selectedElement}
+            onDismiss={() => setSelectedElement(null)}
+          />
+        )} 
+    </div>
   );
 }

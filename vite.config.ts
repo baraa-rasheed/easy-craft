@@ -1,14 +1,15 @@
+import path from "path";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc"; 
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react-swc";
+
 export default defineConfig({
   base: "/easy-craft",
-  optimizeDeps: {
-    include: ["@emotion/react", "@emotion/styled", "@mui/material/Tooltip"],
+  plugins: [react(), tailwindcss()],
+  server: { open: true, port: 3000 },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
-  plugins: [
-    react({
-      jsxImportSource: "@emotion/react", 
-    }), 
-  ], 
-  server: { open: true, port: 3000 }, 
 });

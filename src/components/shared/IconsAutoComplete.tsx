@@ -1,12 +1,6 @@
-import * as React from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete, { autocompleteClasses, AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Popper from "@mui/material/Popper";
-import { useTheme, styled } from "@mui/material/styles";
-import { VariableSizeList, ListChildComponentProps } from "react-window";
-import * as Icons from "@mui/icons-material";
-import { Box, InputAdornment } from "@mui/material";
+import * as React from "react"; 
+import { VariableSizeList, ListChildComponentProps } from "react-window"; 
+import * as Icons from 'lucide-react';
 
 const AppIcons = Object.keys(Icons)
   .filter((name) => name.includes("Outlined"))
@@ -109,17 +103,7 @@ const ListboxComponent = React.forwardRef<
     </div>
   );
 });
-
-const StyledPopper = styled(Popper)({
-  [`& .${autocompleteClasses.listbox}`]: {
-    boxSizing: "border-box",
-    "& ul": {
-      padding: 0,
-      margin: 0,
-    },
-  },
-});
-
+ 
 const renderInput = (params:AutocompleteRenderInputParams) => {
   const Icon = Icons[params?.inputProps?.value as keyof typeof Icons];
   return (

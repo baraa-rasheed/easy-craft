@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import invariant from "tiny-invariant";
-import { Typography } from "@mui/material";
 import { dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -19,18 +18,18 @@ export default function DropArea({
   id,
   title,
   style,
-}: {
+}: Readonly<{
   title?: string;
   id: string;
   style?: any;
-}) {
+}>) {
   const ref = useRef(null);
   const [state, setState] = useState<State>(idle);
 
   useEffect(() => {
     const element = ref.current;
     invariant(element);
-    dropTargetForElements({
+    return dropTargetForElements({
       element: element,
       getData: () => ({ id }),
       onDrop: () => setState(idle),
@@ -60,8 +59,8 @@ export default function DropArea({
               rotate: "0deg",
               opacity: 0,
               scale: 0.7,
-              backgroundColor: "#fff",
             }}
+            className="bg-card"
             exit={{
               opacity: 0,
             }}
@@ -69,7 +68,6 @@ export default function DropArea({
               rotate: "-2deg",
               opacity: 1,
               scale: 1,
-              backgroundColor: "#f1f5f9",
             }}
             transition={{
               delay: 0.1,
@@ -84,9 +82,9 @@ export default function DropArea({
               height: "100%",
             }}
           >
-            <Typography variant="h4" textAlign={"center"}>
+            <h4 className="text-center">
               {title ?? "Drop your element here..."}
-            </Typography>
+            </h4>
           </motion.div>
         )}
       </AnimatePresence>

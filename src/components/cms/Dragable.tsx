@@ -3,10 +3,6 @@ import { motion } from "framer-motion";
 import invariant from "tiny-invariant";
 
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-const list = {
-  visible: { rotate: 2 },
-  hidden: { scale: 1 },
-};
 
 interface IProps {
   id: string;

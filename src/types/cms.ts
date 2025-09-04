@@ -73,7 +73,7 @@ export type IComponents = Partial<{
 }>;
 
 export const CMS_COMPONENTS: IComponents = {
-  StatsCard: {
+  StatsCard: { 
     element: "StatsCard",
     props: {
       title: {
@@ -176,7 +176,7 @@ export const CMS_COMPONENTS: IComponents = {
       getTempretureSensorData: {
         helperKey: "formatChartData",
         key: "getTempretureSensorData",
-        title: "Get Tempreture Sensor Data",
+        title: "Tempreture Sensor Data",
         responseToProps: { chartData: "chartData" },
         description: "This will show the Temp sensor Information",
         data: [],
@@ -187,8 +187,7 @@ export const CMS_COMPONENTS: IComponents = {
     element: "AreaChartCard",
     props: {
       title: {
-        key: "title",
-        disableUserInteraction: true,
+        key: "title", 
         type: {
           textField: {
             type: "text",
@@ -272,7 +271,7 @@ export const CMS_COMPONENTS: IComponents = {
       getTempretureSensorData: {
         helperKey: "formatChartData",
         key: "getTempretureSensorData",
-        title: "Get Tempreture Sensor Data",
+        title: "Tempreture Sensor Data",
         responseToProps: { chartData: "chartData" },
         description: "This will show the Temp sensor Information",
         data: [

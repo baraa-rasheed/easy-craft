@@ -1,23 +1,22 @@
 import startCase from "lodash/startCase";
-import { useAsyncError } from "react-router-dom";
 import { IElement } from "../types/routes";
-import { Callout } from "../components/primitives/Callout";
-import { RiErrorWarningFill } from "@remixicon/react";
-import Card from "./Card";
+import { Card, CardContent, CardHeader } from "./ui/card";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { XCircleIcon, XIcon } from "lucide-react";
 
-export default function ErrorElement(element: IElement) {
-  const error = useAsyncError();
-  console.log(error);
+export default function ErrorElement(element: Readonly<IElement>) {
   return (
-    <Card>
-      <Callout
-        variant="error"
-        className="w-full"
-        icon={RiErrorWarningFill}
-        title="Something went wrong"
-      >
-        Something went wrong while loading data {startCase(element?.api?.key)}
-      </Callout>
+    <Card className="h-full">
+      <CardContent>
+
+    <Alert variant={"destructive"}>
+      <XCircleIcon />
+      <AlertTitle>Oops!!</AlertTitle>
+      <AlertDescription>
+        Something went wrong while loading {startCase(element?.api?.key)}
+      </AlertDescription>
+    </Alert>
+      </CardContent>
     </Card>
   );
 }

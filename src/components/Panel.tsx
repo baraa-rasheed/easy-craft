@@ -1,18 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import Button from "@/components/ui/button";
 
 export default function Panel() {
   return (
-    <Box
-      height={100}
-      width={"100%"}
-      display={"flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      bgcolor={"primary.light"}
-    >
-      <Typography color={"primary"} variant="button">
-        New Panel
-      </Typography>
-    </Box>
+    <div>
+      <Button variant="ghost">New Panel</Button>
+    </div>
   );
 }
